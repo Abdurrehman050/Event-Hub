@@ -8,6 +8,7 @@ const userRouter = require("./routes/userRouter");
 const errorHandler = require("./middlewares/errorHandlerMiddleware");
 const adRouter = require("./routes/adRouter");
 const chatRouter = require("./routes/chatRouter");
+const offerRouter = require("./routes/offerRouter");
 const app = express();
 
 //! Connect to mongoDB
@@ -32,6 +33,7 @@ app.use(cors(corsOptions));
 app.use("/", userRouter);
 app.use("/", adRouter);
 app.use("/", chatRouter);
+app.use("/", offerRouter);
 
 //! Error Handling
 app.use(errorHandler);
