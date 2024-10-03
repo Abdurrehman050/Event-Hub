@@ -24,7 +24,6 @@ const reviewSchema = new mongoose.Schema({
 
 const adSchema = new mongoose.Schema({
   user: {
-    // Keep this field
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
@@ -39,7 +38,7 @@ const adSchema = new mongoose.Schema({
     required: true,
   },
   images: {
-    type: [{ type: String }], // Array of strings
+    type: [{ type: String }], // Array of strings for image paths
     required: true,
   },
   attributes: {
@@ -67,6 +66,16 @@ const adSchema = new mongoose.Schema({
       catering: {
         type: Boolean,
       },
+      // New fields for Caterer Ads
+      kitchenType: {
+        type: String, // Add this for caterer ads (e.g., "vegetarian", "continental", etc.)
+      },
+      supportedEvents: {
+        type: [String], // Add this to hold an array of supported event types
+      },
+      companyName: {
+        type: String, // Add this for caterer ads
+      },
     },
   },
   info: {
@@ -77,7 +86,7 @@ const adSchema = new mongoose.Schema({
         type: String,
       },
       address: {
-        type: String,
+        type: String, // Used by both music and caterer ads
       },
       capacity: {
         type: Number,
@@ -86,7 +95,7 @@ const adSchema = new mongoose.Schema({
         type: Number,
       },
       description: {
-        type: String,
+        type: String, // Used by both music and caterer ads
       },
     },
   },

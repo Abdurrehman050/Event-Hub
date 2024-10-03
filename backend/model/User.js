@@ -13,6 +13,12 @@ const userSchema = new Schema(
         ref: "Ad",
       },
     ],
+    favorites: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Ad",
+      },
+    ],
   },
   { timestamps: true }
 );

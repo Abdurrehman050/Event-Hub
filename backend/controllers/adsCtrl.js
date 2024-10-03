@@ -59,6 +59,133 @@ const adsController = {
       });
     }),
   ],
+  //! Create Music Ad
+  createMusicAd: [
+    upload.array("images", 5), // Allow up to 5 image uploads
+    asyncHandler(async (req, res) => {
+      const { name, type, info } = req.body;
+      const user = req.user._id; // Assuming the user is authenticated and available in req.user
+
+      // Validate the required fields
+      if (
+        !name ||
+        type !== "music" ||
+        !req.files ||
+        req.files.length === 0 ||
+        !info
+      ) {
+        return res.status(400).json({
+          message: "Please provide all required fields for a music ad",
+        });
+      }
+
+      // Collect image paths
+      const images = req.files.map((file) => `/ads_images/${file.filename}`);
+
+      // Parse the info object and extract necessary fields (address, description)
+      const parsedInfo = JSON.parse(info);
+      const { address, description } = parsedInfo;
+
+      if (!address || !description) {
+        return res.status(400).json({
+          message: "Address and description are required for music ads",
+        });
+      }
+      console.log(req.files); // Check if files are being passed correctly
+      console.log(req.body); // Check the other fields being passed
+
+      // Create the music ad
+      const newAd = await Ad.create({
+        user,
+        name,
+        type,
+        images,
+        info: { address, description }, // Store only address and description in info
+      });
+
+      // Associate the ad with the user
+      const currentUser = await User.findById(user);
+      currentUser.ads.push(newAd._id);
+      await currentUser.save();
+
+      res.status(201).json({
+        message: "Music ad created successfully",
+        ad: newAd,
+      });
+    }),
+  ],
+  //! create caterer ad
+  createCatererAd: [
+    upload.array("images", 5), // Allow up to 5 image uploads
+    asyncHandler(async (req, res) => {
+      const {
+        name,
+        type,
+        info,
+        eventType,
+        kitchenType,
+        companyName,
+        supportedEvents,
+      } = req.body;
+      const user = req.user._id; // Assuming the user is authenticated and available in req.user
+
+      // Validate the required fields
+      if (
+        !name ||
+        type !== "caterer" ||
+        !req.files ||
+        req.files.length === 0 ||
+        !info ||
+        !supportedEvents ||
+        !kitchenType ||
+        !companyName
+      ) {
+        return res.status(400).json({
+          message: "Please provide all required fields for a caterer ad",
+        });
+      }
+
+      // Collect image paths
+      const images = req.files.map((file) => `/ads_images/${file.filename}`);
+
+      // Parse the info object and extract necessary fields (address, description)
+      const parsedInfo = JSON.parse(info);
+      const { address, description } = parsedInfo;
+
+      if (!address || !description) {
+        return res.status(400).json({
+          message: "Address and description are required for caterer ads",
+        });
+      }
+      console.log(req.body); // Check body fields
+      console.log(req.files); // Check if files are being uploaded
+
+      // Create the caterer ad
+      const newAd = await Ad.create({
+        user,
+        name,
+        type,
+        images,
+        info: { address, description }, // Store address and description in info
+        eventType,
+        attributes: {
+          kitchenType,
+          companyName,
+          supportedEvents: JSON.parse(supportedEvents), // Convert stringified array to JSON
+        },
+      });
+
+      // Associate the ad with the user
+      const currentUser = await User.findById(user);
+      currentUser.ads.push(newAd._id);
+      await currentUser.save();
+
+      res.status(201).json({
+        message: "Caterer ad created successfully",
+        ad: newAd,
+      });
+    }),
+  ],
   //! get all ads
   getAllAds: asyncHandler(async (req, res) => {
     const ads = await Ad.find().populate("user", "username"); // Populate user info if needed

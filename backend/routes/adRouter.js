@@ -6,6 +6,18 @@ const adRouter = express.Router();
 
 //! Create Ad
 adRouter.post("/api/v1/ads/create", isAuthenticated, adsController.createAd);
+//! Create Ad music
+adRouter.post(
+  "/api/v1/ads/create-music-ad",
+  isAuthenticated,
+  adsController.createMusicAd
+);
+//! Create Ad caterer
+adRouter.post(
+  "/api/v1/ads/create-caterer-ad",
+  isAuthenticated,
+  adsController.createCatererAd
+);
 //! Fetch All Ads
 adRouter.get("/api/v1/ads", isAuthenticated, adsController.getAllAds);
 //! Fetch Single Ad
