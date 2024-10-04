@@ -1,11 +1,19 @@
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const twilio = require("twilio");
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 const User = require("../model/User");
 const Ad = require("../model/Ad");
+
+//! Twilio Credentials
+
+// Twilio Credentials
+const accountSid = "your_account_sid"; // get it from twilio account
+const authToken = "your_auth_token"; // get it from twilio account
+const client = new twilio(accountSid, authToken);
 //! Set up multer for file uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -116,7 +124,7 @@ const usersController = {
   //     .create({
   //       body: `Your login verification code is ${verificationCode}`,
   //       to: user.mobile_number, // User's phone number from the database
-  //       from: "+your_twilio_number", // Twilio number
+  //       from: "+your_twilio_number", // Twilio number (buy it from twilio)
   //     })
   //     .then(() => {
   //       res.status(200).json({
@@ -365,9 +373,6 @@ const usersController = {
           }
         });
       }
-
-      // // Delete orders associated with the user
-      // await Order.deleteMany({ user: userId });
 
       // Delete the user
       await User.findByIdAndDelete(userId);

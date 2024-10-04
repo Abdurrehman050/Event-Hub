@@ -27,7 +27,7 @@ app.use(express.json()); //? Pass incoming json data
 app.use(cookieParser()); // pass the cookie automatically
 //! CORS Setup
 const corsOptions = {
-  origin: ["http://localhost:3000", "http://192.168.10.42:3000/"],
+  origin: ["http://localhost:3000"], // add your frontend url
   credentials: true,
 };
 app.use(cors(corsOptions));
