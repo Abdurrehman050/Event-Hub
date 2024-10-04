@@ -107,6 +107,18 @@ const adSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  products: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
+    },
+  ],
+  menus: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Menu",
+    },
+  ],
   updatedAt: {
     type: Date,
     default: Date.now,

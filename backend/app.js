@@ -10,6 +10,7 @@ const adRouter = require("./routes/adRouter");
 const chatRouter = require("./routes/chatRouter");
 const offerRouter = require("./routes/offerRouter");
 const favoritesRouter = require("./routes/favoritesRoutes");
+const catererRouter = require("./routes/catererRouter");
 const app = express();
 
 //! Connect to mongoDB
@@ -36,6 +37,7 @@ app.use("/", adRouter);
 app.use("/", chatRouter);
 app.use("/", offerRouter);
 app.use("/", favoritesRouter);
+app.use("/", catererRouter);
 
 //! Error Handling
 app.use(errorHandler);

@@ -21,6 +21,12 @@ userRouter.put(
   isAuthenticated,
   usersController.changeUserPassword
 );
+//! Forgot Password
+userRouter.post(
+  "/api/v1/users/forgot-password",
+  usersController.forgotPassword
+);
+
 //! change user Profile
 userRouter.put(
   "/api/v1/users/update-profile",
@@ -62,5 +68,14 @@ userRouter.get(
   isAuthenticated,
   usersController.checkAuth
 );
+
+// //! Signup (Register)
+// userRouter.post("/api/v1/users/signup", usersController.signup);
+
+// //! Login
+// userRouter.post("/api/v1/users/login", usersController.login);
+
+// //! Verify Phone Number
+// userRouter.post("/api/v1/users/verify", usersController.verify);
 
 module.exports = userRouter;

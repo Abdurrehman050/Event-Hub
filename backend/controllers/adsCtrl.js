@@ -195,7 +195,9 @@ const adsController = {
   getSingleAd: asyncHandler(async (req, res) => {
     const ad = await Ad.findById(req.params.id)
       .populate("user", "username")
-      .populate("reviews.user", "username"); // Populate the user who gave the review
+      .populate("reviews.user", "username") // Populate the user who gave the review
+      .populate("menus")
+      .populate("products");
 
     if (!ad) {
       res.status(404);
