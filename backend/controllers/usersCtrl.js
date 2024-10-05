@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const twilio = require("twilio");
+//const twilio = require("twilio");
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
@@ -11,9 +11,9 @@ const Ad = require("../model/Ad");
 //! Twilio Credentials
 
 // Twilio Credentials
-const accountSid = "your_account_sid"; // get it from twilio account
-const authToken = "your_auth_token"; // get it from twilio account
-const client = new twilio(accountSid, authToken);
+// const accountSid = "your_account_sid"; // get it from twilio account
+// const authToken = "your_auth_token"; // get it from twilio account
+// const client = new twilio(accountSid, authToken);
 //! Set up multer for file uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {

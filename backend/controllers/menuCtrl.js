@@ -78,7 +78,7 @@ const menuController = {
     upload.array("images", 5),
     asyncHandler(async (req, res) => {
       const { menuId } = req.params;
-      const { name } = req.body;
+      const { name, price } = req.body; // price
       const menu = await Menu.findById(menuId);
 
       if (!menu) {
@@ -91,6 +91,7 @@ const menuController = {
 
       // Update menu fields
       menu.name = name || menu.name;
+      menu.price = price || menu.price;
 
       // Update images if provided
       if (req.files) {
